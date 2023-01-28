@@ -1,0 +1,9 @@
+<h1>Your Workouts</h1>
+
+<ul>
+  <% @workouts.each do |workout| %>
+    <li>
+      <%= workout.date %>
+    </li>
+  <% end %>
+</ul>
