@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_28_202518) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_29_182040) do
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.integer "reps"
+    t.integer "weight"
+    t.integer "work_set_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["work_set_id"], name: "index_exercises_on_work_set_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -23,6 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_202518) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "work_sets", force: :cascade do |t|
+    t.integer "workout_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workout_id"], name: "index_work_sets_on_workout_id"
+  end
+
   create_table "workouts", force: :cascade do |t|
     t.date "date"
     t.datetime "created_at", null: false
@@ -31,5 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_28_202518) do
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
+  add_foreign_key "exercises", "work_sets"
+  add_foreign_key "work_sets", "workouts"
   add_foreign_key "workouts", "users"
 end
