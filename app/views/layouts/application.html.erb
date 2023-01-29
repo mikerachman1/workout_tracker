@@ -13,8 +13,22 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <div class="header">
+      <% if current_user %>
+        <span>Logged in as: <%= current_user.email %></span>
+        <%= button_to(
+            "Log Out",
+            destroy_user_session_path,
+            method: :delete
+          ) %>      
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

@@ -3,7 +3,9 @@
 <ul>
   <% @workouts.each do |workout| %>
     <li>
-      <%= workout.date %>
+      <a href="/workouts/<%= workout.id %>">
+        <%= workout.date %>
+      </a>
     </li>
   <% end %>
 </ul>
